@@ -37,7 +37,7 @@
     },
     "dependencies": {
         "bootstrap": "4.4.1",
-        "jquery": "^1.12.4",
+        "jquery": "^3.5.1",
         "popper.js": "^1.16.1"
     },
     "devDependencies": {
@@ -45,11 +45,16 @@
         "browser-sync": "2.26.7",
         "chokidar": "3.3.1",
         "concurrently": "5.1.0",
+        "gh-pages": "^3.0.0",
+        "minimist": "^1.2.5",
         "postcss": "7.0.27",
         "prettier": "1.19.1",
         "pug": "2.0.4",
         "sass": "1.25.0",
         "shelljs": "0.8.3",
         "upath": "1.2.0"
+    },
+    "resolutions": {
+        "minimist": "^1.2.5"
     }
 }
