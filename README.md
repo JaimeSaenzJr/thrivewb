@@ -1,3 +1,0 @@
-# thrivewb
-
-why tho.
