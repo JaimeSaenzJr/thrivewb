@@ -166,6 +166,8 @@ strong {
   font-weight: bolder;
 }
 
+.customHeight { height: 600px; }
+
 small {
   font-size: 80%;
 }
