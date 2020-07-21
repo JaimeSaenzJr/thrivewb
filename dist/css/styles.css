@@ -17126,6 +17126,10 @@ a.text-danger:hover, a.text-danger:focus {
   color: #eff3f9 !important;
 }
 
+.ease-header {
+  color: #1F61DC !important;
+}
+
 a.text-light:hover, .page-header-dark a.btn-link:hover, a.text-light:focus, .page-header-dark a.btn-link:focus {
   color: #b7c9e4 !important;
 }
