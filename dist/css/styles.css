@@ -6355,8 +6355,15 @@ input[type=button].btn-block {
   line-height: inherit;
   white-space: nowrap;
 }
+
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
+}
+
+.nav-img {
+  min-width: 200px;
+  height: auto !important;
+  max-height: 80px;
 }
 
 .navbar-nav {
