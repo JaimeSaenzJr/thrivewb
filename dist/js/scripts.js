@@ -16,6 +16,26 @@
         trigger: "focus"
     });
 
+    $("#contact_form").submit(function(e){
+       e.preventDefault();
+       $.ajax({
+        url : "https://thrive-wv-backend.herokuapp.com/send",
+        type: "POST",
+        data: JSON.stringify(
+            {
+                "name": e.target[0].value, 
+                "message": e.target[2].value, 
+                "email": e.target[1].value
+            }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType   : "json",
+        success    : function(){
+            alert("Your message has been sent!");
+        }
+       })
+    })
+
     // Activate Feather icons
     feather.replace();
 
