@@ -1,0 +1,5 @@
+---
+deployment:
+tasks:
+  - export DEPLOYPATH=/home4/thrivewb/public_html/
+  - /bin/cp -r * $DEPLOYPATH
