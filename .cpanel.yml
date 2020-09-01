@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home4/thrivewb/repositories/thrivewb
+    - /bin/cp -R dist $DEPLOYPATH
