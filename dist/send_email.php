@@ -1,30 +1,45 @@
 <?php
-$to = 'erica@thrivewb.com';
-$subject = 'New form submission';
-$message = "Name: {$_POST['name']}\n";
-$message .= "Email: {$_POST['email']}\n";
-$message .= "Organization: {$_POST['organization']}\n";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $to = "erica@thrivewb.com";
+  $subject = "New Form Submission";
 
+  $name = $_POST["name"];
+  $organization = $_POST["organization"];
+  $from = $_POST["email"];
+  $attachment1 = $_FILES["attachment1"];
+  $attachment2 = $_FILES["attachment2"];
 
-// Attachments handling
-if (isset($_FILES['attachments']) && $_FILES['attachments']['error'] == UPLOAD_ERR_OK) {
-    $attachment_path = $_FILES['attachments']['tmp_name'];
-    $attachment_name = $_FILES['attachments']['name'];
-    $attachment_type = $_FILES['attachments']['type'];
-    $attachment_size = $_FILES['attachments']['size'];
-    
-    // Add attachment to message
-    $attachment = file_get_contents($attachment_path);
-    $attachment_encoded = chunk_split(base64_encode($attachment));
-    $message .= "Attachment: {$attachment_name}\n";
-    $message .= "Content-Type: {$attachment_type}\n";
-    $message .= "Content-Transfer-Encoding: base64\n\n";
-    $message .= "{$attachment_encoded}\n";
+  $headers = "From: $from\r\n";
+  $headers .= "Reply-To: $from\r\n";
+  $headers .= "Content-Type: multipart/mixed; boundary=boundary\n";
+
+  $message = "Name: $name\n";
+  $message .= "Organization: $organization\n\n";
+
+  $content = chunk_split(base64_encode(file_get_contents($attachment1["tmp_name"])));
+  $filename = $attachment1["name"];
+  $message .= "--boundary\n";
+  $message .= "Content-Type: {\"application/octet-stream\"};\n";
+  $message .= " name=\"$filename\"\n";
+  $message .= "Content-Disposition: attachment;\n";
+  $message .= " filename=\"$filename\"\n";
+  $message .= "Content-Transfer-Encoding: base64\n\n";
+  $message .= "$content\n";
+
+  $content2 = chunk_split(base64_encode(file_get_contents($attachment2["tmp_name"])));
+  $filename2 = $attachment2["name"];
+  $message .= "--boundary\n";
+  $message .= "Content-Type: {\"application/octet-stream\"};\n";
+  $message .= " name=\"$filename2\"\n";
+  $message .= "Content-Disposition: attachment;\n";
+  $message .= " filename=\"$filename2\"\n";
+  $message .= "Content-Transfer-Encoding: base64\n\n";
+  $message .= "$content2\n";
+
+  if (mail($to, $subject, $message, $headers)) {
+    echo "Thank you for your submission.";
+  } else {
+    echo "There was a problem sending your submission.";
+  }
 }
-
-$headers = 'From: webmaster@example.com' . "\r\n" .
-           'Reply-To: ' . $_POST['email'] . "\r\n" .
-           'X-Mailer: PHP/' . phpversion();
-
-mail($to, $subject, $message, $headers);
 ?>
