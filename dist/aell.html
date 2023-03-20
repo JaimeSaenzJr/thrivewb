@@ -12,6 +12,7 @@
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <div id="layoutDefault">
@@ -79,7 +80,7 @@
                             <h2 class="mb-4 mb-3 text-center">Complete this form and we'll contact you!</h2>
                             <div class="card rounded-3 text-dark">
                                     <div class="card-body">
-                                        <form method="post" action="send_email.php" enctype="multipart/form-data">
+                                        <form method="post" id="my-form" action="send_email.php" enctype="multipart/form-data">
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
                                                 <input type="text" name="name" id="name" class="form-control" required>
@@ -192,3 +193,31 @@
         <script src="js/scripts.js"></script>
     </body>
 </html>
+
+<script>
+    $(document).ready(function() {
+      $("#my-form").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: "send_email.php",
+          type: "POST",
+          data: new FormData(this),
+          dataType: "json",
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function(data) {
+            if (data.status === "success") {
+              alert("Thank you for your submission.");
+            } else {
+              alert("There was a problem sending your submission.");
+            }
+          },
+          error: function() {
+            alert("There was a problem sending your submission.");
+          }
+        });
+      });
+    });
+    </script>
+    
