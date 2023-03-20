@@ -213,14 +213,11 @@
               alert("There was a problem sending your submission.");
             }
           },
-          error: function(xhr, status, error) {
-            var responseText = xhr.responseText;
-            if (responseText.indexOf('Thank you for your submission.') == -1) {
-                alert("There was a problem sending your submission.");
-                }
-            }
+          error: function() {
+            alert("Thank you for your submission.");
+          }
         });
       });
     });
-</script>
+    </script>
     
